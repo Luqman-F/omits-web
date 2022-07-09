@@ -16,9 +16,10 @@ class User extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'name', 'email', 'sekolah', 'nisn', 'wa',
-        'kota', 'provinsi', 'image', 'bukti_nisn',
-        'bukti_bayar', 'password', 'role_id', 'is_active',
+        'nama_ketua', 'nama_anggota', 'email_ketua', 'email_anggota',
+        'sekolah', 'nisn_ketua', 'nisn_anggota', 'wa_ketua', 'wa_anggota',
+        'kota', 'provinsi', 'bukti_nisn_ketua', 'bukti_nisn_anggota',
+        'bukti_bayar', 'password', 'role_id', 'is_active', 'nomor_peserta'
     ];
 
     // Dates
@@ -47,7 +48,7 @@ class User extends Model
 
     public function getByEmail(string $email)
     {
-        return $this->where('email', $email)->first();
+        return $this->where('email_ketua', $email)->first();
     }
 
     public static function getImageLink(string $imageID)
@@ -59,7 +60,8 @@ class User extends Model
     {
         if (($data['method'] == 'find' && !isset($data['id'])) || $data['method']=='findAll') {
             foreach($data['data'] as $key => $item) {
-                $data['data'][$key]['bukti_nisn'] = isset($item['bukti_nisn']) ? $this->getImageLink($item['bukti_nisn']) : null;
+                $data['data'][$key]['bukti_nisn_ketua'] = isset($item['bukti_nisn_ketua']) ? $this->getImageLink($item['bukti_nisn_ketua']) : null;
+                $data['data'][$key]['bukti_nisn_anggota'] = isset($item['bukti_nisn_anggota']) ? $this->getImageLink($item['bukti_nisn_anggota']) : null;
                 $data['data'][$key]['bukti_bayar'] = isset($item['bukti_bayar']) ? $this->getImageLink($item['bukti_bayar']) : null;
             }
         }

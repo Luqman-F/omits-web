@@ -28,11 +28,11 @@
                                         <?= csrf_field(); ?>
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
-                                            name="email" id="email" placeholder="Email">
+                                            name="email_ketua" id="email_ketua" placeholder="Email">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
-                                                name="no_wa" id="no_wa" placeholder="No. WA">
+                                                name="wa_ketua" id="wa_ketua" placeholder="No. WA">
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Submit
@@ -40,7 +40,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="registration">Create an Account!</a>
+                                        <a class="small" href="<?= route_to('Home::registration')?>">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

@@ -15,7 +15,7 @@
     $menu = [
         // 'item' => ['judul', 'link', 'ikon']
         'Admin'    =>    [
-            ['Dashboard', 'dashboard/admin', 'fas fa-fw fa-tachometer-alt'],
+            ['Dashboard ', 'dashboard/admin', 'fas fa-fw fa-tachometer-alt'],
             ['List User', 'dashboard/listUser', 'fas fa-fw fa-users'],
         ],
         'Peserta'   =>  [

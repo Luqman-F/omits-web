@@ -21,7 +21,7 @@ class Auth extends BaseController
             if (password_verify($this->request->getPost('password'), $user['password'])) {
                 session()->set([
                     'id'    =>  $user['id'],
-                    'name'  =>  $user['name'],
+                    'nama_ketua'  =>  $user['nama_ketua'],
                     'role_id'   => $user['role_id'],
                 ]);
                 return redirect('dashboard');
@@ -44,18 +44,14 @@ class Auth extends BaseController
         $model = new User();
 
         if ($this->validate('registration')) {
-            if ($model->getByEmail($this->request->getPost('email'))) {
+            if ($model->getByEmail($this->request->getPost('email_ketua'))) {
                 return redirect()->back()->with('msg', 'E-mail sudah terdaftar');
             }
             $data = $this->request->getPost();
-            $model->save([
-                'name'    =>    $data['name'],
-                'email'    =>    $data['email'],
-                'wa'    =>    $data['no_wa'],
-                'password'    =>    password_hash($data['password'], PASSWORD_DEFAULT),
-                'role_id'	=>	2,
-            ]);
-            return redirect('login');
+            $data['role_id'] = 2;
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            $model->save($data);
+            return redirect('login')->with('success', 'Registrasi berhasil. Silakan login');
         } else {
             return redirect()->back()->with('msg', $this->validator->listErrors());
         }
@@ -66,24 +62,24 @@ class Auth extends BaseController
         $model = new User();
 
         if ($this->validate([
-            'email'    =>    'required|valid_email',
-            'no_wa'    =>    'required'
+            'email_ketua'    =>    'required|valid_email',
+            'wa_ketua'    =>    'required'
         ], [
-            'email'    =>    [
+            'email_ketua'    =>    [
                 'required'    =>    'Email tidak boleh kosong',
                 'valid_email'   =>  'Mohon cek kembali penulisan email anda'
             ],
-            'no_wa'    =>    [
+            'wa_ketua'    =>    [
                 'required'  =>  'Nomor WA tidak boleh kosong'
             ]
         ])) {
-            $data = $model->select('id, email, wa')->where('email', $this->request->getPost('email'))->first();
+            $data = $model->select('id, email_ketua, wa_ketua')->where('email_ketua', $this->request->getPost('email_ketua'))->first();
 
             if (!$data) {
                 return redirect()->back()->with('msg', 'Email tidak ditemukan, mohon cek kembali email anda!');
             }
 
-            if ( !$data['wa'] == $this->request->getPost('no_wa') ) {
+            if ( !$data['wa_ketua'] == $this->request->getPost('wa_ketua') ) {
                 return redirect()->back()->with('msg', 'Email dan Nomor WA tidak sesuai');
             } else {
                 session()->set('reset_id', $data['id']);
@@ -107,7 +103,7 @@ class Auth extends BaseController
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             if ($model->save($data)) {
                 session()->remove('reset_id');
-                session()->set($model->select('id, name, role_id')->find($data['id']));
+                session()->set($model->select('id, nama_ketua, role_id')->find($data['id']));
                 return redirect('dashboard');
             } else {
                 return redirect()->back()->with('msg', 'Reset password gagal. Mohon hubungi panitia untuk tindakan lebih lanjut');

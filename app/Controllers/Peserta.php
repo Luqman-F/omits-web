@@ -16,18 +16,26 @@ class Peserta extends BaseController
     {
         $model = new User();
         $data = $this->request->getPost();
-        $bukti_nisn = $this->request->getFile('bukti_nisn');
+        $nisn_ketua = $this->request->getFile('bukti_nisn_ketua');
+        $nisn_anggota = $this->request->getFile('bukti_nisn_anggota');
 
         if (!$this->validate('profil')) {
             return redirect()->back()->with('msg', $this->validator->listErrors());
         }
 
-        if (! $bukti_nisn->isValid()) {
-            return redirect()->back()->with('msg', $bukti_nisn->getErrorString());
+        if (! ($nisn_ketua->isValid() && $nisn_anggota->isValid())) {
+            return redirect()->back()->with('msg', $nisn_ketua->getErrorString(). '<br>'. $nisn_anggota->getErrorString());
         }
         
-        $nisn_id = $this->upload($bukti_nisn);
-        $data['bukti_nisn'] = $nisn_id;
+        $id_nisn_ketua = $this->upload($nisn_ketua);
+        $id_nisn_anggota = $this->upload($nisn_anggota);
+
+        if (! ($id_nisn_ketua && $id_nisn_anggota)) {
+            return redirect()->back()->with('msg', 'Terjadi error saat upload file, silakan coba lagi');
+        }
+        $data['id'] = session('id');
+        $data['bukti_nisn_ketua'] = $id_nisn_ketua;
+        $data['bukti_nisn_anggota'] = $id_nisn_anggota;
         $model->save($data);
 
         return redirect()->back()->with('success', 'Profil berhasil disimpan');

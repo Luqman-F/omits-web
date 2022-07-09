@@ -15,24 +15,44 @@ class CreateTableUsers extends Migration
                 'unsigned'          => true,
                 'auto_increment'    => true,
             ],
-            'name'  =>  [
+            'nomor_peserta'  =>  [
                 'type'          => 'VARCHAR',
                 'constraint'    => 128,
             ],
-            'email' =>  [
+            'nama_ketua'  =>  [
+                'type'          => 'VARCHAR',
+                'constraint'    => 128,
+            ],
+            'nama_anggota'  =>  [
+                'type'          => 'VARCHAR',
+                'constraint'    => 128,
+            ],
+            'email_ketua' =>  [
                 'type'          => 'VARCHAR',
                 'constraint'    => 128,
                 'unique'	    =>	true,
+            ],
+            'email_anggota' =>  [
+                'type'          => 'VARCHAR',
+                'constraint'    => 128,
             ],
             'sekolah'   =>  [
                 'type'          => 'VARCHAR',
                 'constraint'    => 128,
             ],
-            'nisn'  =>  [
+            'nisn_ketua'  =>  [
                 'type'          => 'VARCHAR',
                 'constraint'    => 128,
             ],
-            'wa'    =>  [
+            'nisn_anggota'  =>  [
+                'type'          => 'VARCHAR',
+                'constraint'    => 128,
+            ],
+            'wa_ketua'    =>  [
+                'type'          => 'VARCHAR',
+                'constraint'    => 128,
+            ],
+            'wa_anggota'    =>  [
                 'type'          => 'VARCHAR',
                 'constraint'    => 128,
             ],
@@ -44,12 +64,12 @@ class CreateTableUsers extends Migration
                 'type'          => 'VARCHAR',
                 'constraint'    => 128,
             ],
-            'image' =>  [
+            'bukti_nisn_ketua'    =>  [
                 'type'          => 'VARCHAR',
                 'constraint'    => 128,
                 'null'	        =>	true,
             ],
-            'bukti_nisn'    =>  [
+            'bukti_nisn_anggota'    =>  [
                 'type'          => 'VARCHAR',
                 'constraint'    => 128,
                 'null'	        =>	true,
@@ -64,6 +84,10 @@ class CreateTableUsers extends Migration
                 'constraint'    => 256,
             ],
             'role_id'   =>  [
+                'type'          => 'INT',
+                'constraint'    => 2,
+            ],
+            'region'   =>  [
                 'type'          => 'INT',
                 'constraint'    => 2,
             ],

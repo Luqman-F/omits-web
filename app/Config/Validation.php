@@ -57,23 +57,23 @@ class Validation
     ];
 
     public $registration = [
-        'name'  =>  'required',
-        'email' =>  'required|valid_email|is_unique[users.email]',
-        'no_wa' =>  'required',
+        'nama_ketua'  =>  'required',
+        'email_ketua' =>  'required|valid_email|is_unique[users.email_ketua]',
+        'wa_ketua' =>  'required',
         'password'    =>    'required|min_length[8]',
         'confirm_password'  =>  'required|matches[password]',
     ];
 
     public $registration_errors = [
-        'name'    =>    [
+        'nama_ketua'    =>    [
             'required'      =>  'Nama tidak boleh kosong'
         ],
-        'email'    =>    [
+        'email_ketua'    =>    [
             'required'      =>  'Email tidak boleh kosong',
             'valid_email'   =>  'Mohon masukkan email yang valid',
             'is_unique'     =>  'Email sudah terdaftar'
         ],
-        'no_wa' => [
+        'wa_ketua' => [
             'required'      => 'Nomor Whatsapp tidak boleh kosong'
         ],
         'password'  =>    [
@@ -99,34 +99,26 @@ class Validation
     ];
 
     public $profil = [
-        'name'  =>  'required',
-        'sekolah'   =>  'required',
-        'wa'    =>  'required',
-        'kota'  =>  'required',
-        'provinsi'  =>  'required',
-        'bukti_nisn'    =>  'uploaded[bukti_nisn]|max_size[bukti_nisn, 2048]|is_image[bukti_nisn]',
+        'email_ketua'   =>  'valid_email|is_unique[users.email_ketua]',
+        'email_anggota'    =>  'valid_email',
+        'bukti_nisn_ketua'    =>  'uploaded[bukti_nisn_ketua]|max_size[bukti_nisn_ketua, 2048]|is_image[bukti_nisn_ketua]',
+        'bukti_nisn_anggota'    =>  'uploaded[bukti_nisn_anggota]|max_size[bukti_nisn_anggota, 2048]|is_image[bukti_nisn_anggota]',
     ];
 
     public $profil_errors = [
-        'name'  =>  [
-            'required'    =>    'Nama tidak boleh kosong',
+        'email_ketua'    =>    [
+            'valid_email'   =>  'Mohon masukkan email yang valid',
+            'is_unique'     =>  'Email sudah terdaftar'
         ],
-        'sekolah'  =>  [
-            'required'    =>    'Sekolah tidak boleh kosong',
-        ],
-        'wa'  =>  [
-            'required'    =>    'Nomor WA tidak boleh kosong',
-        ],
-        'kota'  =>  [
-            'required'    =>    'Kota tidak boleh kosong',
-        ],
-        'provinsi'  =>  [
-            'required'    =>    'Provinsi tidak boleh kosong',
-        ],
-        'bukti_nisn'    =>    [
+        'bukti_nisn_ketua'    =>    [
             'uploaded'  =>  'Terjadi kesalahan, Silakan coba lagi',
             'max_size'  =>  'File tidak boleh lebih dari 2 MB',
             'is_image'  =>  'File yang diupload bukan gambar',
-        ]
+        ],
+        'bukti_nisn_anggota'    =>    [
+            'uploaded'  =>  'Terjadi kesalahan, Silakan coba lagi',
+            'max_size'  =>  'File tidak boleh lebih dari 2 MB',
+            'is_image'  =>  'File yang diupload bukan gambar',
+        ],
     ];
 }

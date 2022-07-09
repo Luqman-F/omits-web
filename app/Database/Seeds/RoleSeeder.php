@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
             ],
             [
                 'id'    =>  2,
-                'name'  =>  'Belum Terverifikasi',
+                'name'  =>  '-',
             ],
             [
                 'id'    =>  3,

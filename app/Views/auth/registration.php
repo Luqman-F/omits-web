@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <?= $this->include('head', [$title]); ?>
+
 <body class="bg-gradient-primary">
 
     <div class="container">
@@ -20,32 +21,29 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Registrasi</h1>
                                     </div>
-                                    <?php if($msg = session()->getFlashdata('msg')): ?>
-                                    <div class="alert alert-danger">
-                                        <?= $msg ?>
-                                    </div>
+                                    <?php if ($msg = session()->getFlashdata('msg')) : ?>
+                                        <div class="alert alert-danger">
+                                            <?= $msg ?>
+                                        </div>
                                     <?php endif; ?>
                                     <form class="user" action="auth/register" method="POST">
                                         <?= csrf_field(); ?>
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                name="name" id="name" placeholder="Nama">
+                                            <input type="text" class="form-control form-control-user" name="nama_ketua" id="nama_ketua" placeholder="Nama Lengkap Ketua">
+                                            <small class="form-text ml-2">*Nama ditulis menggunakan huruf kapital</small>
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                            name="email" id="email" placeholder="Email">
+                                            <input type="email" class="form-control form-control-user" name="email_ketua" id="email_ketua" placeholder="Email Ketua">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                name="no_wa" id="no_wa" placeholder="No. WA">
+                                            <input type="text" class="form-control form-control-user" name="wa_ketua" id="wa_ketua" placeholder="No. WA Ketua">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                            name="password" id="password" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password">
+                                            <small class="form-text ml-2">*Password minimal berisi 8 karakter</small>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                name="confirm_password" id="confirm_password" placeholder="Konfirmasi Password">
+                                            <input type="password" class="form-control form-control-user" name="confirm_password" id="confirm_password" placeholder="Konfirmasi Password">
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Submit
@@ -53,7 +51,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="login">Already have an Account? Login!</a>
+                                        <a class="small" href="<?= route_to('Home::login') ?>">Already have an Account? Login!</a>
                                     </div>
                                 </div>
                             </div>
