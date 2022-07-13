@@ -13,7 +13,7 @@
             <?= $msg ?>
         </div>
     <?php endif; ?>
-    <form action="<?= route_to('Peserta::editProfil') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= url_to('Peserta::editProfil') ?>" method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
         <div class="row">
             <div class="col-lg-6">
@@ -49,6 +49,14 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
+                    <label for="email_ketua">Email Ketua</label>
+                    <input type="text" class="form-control" name="email_ketua" id="email_ketua" placeholder="Email Ketua" value="<?= $user['email_ketua'] ?>">
+                </div>
+                <div class="form-group">
+                    <label for="email_anggota">Email Anggota</label>
+                    <input type="text" class="form-control" name="email_anggota" id="email_anggota" placeholder="Email Anggota" value="<?= $user['email_anggota'] ?>">
+                </div>
+                <div class="form-group">
                     <label for="kota">Kota</label>
                     <input type="text" class="form-control" name="kota" id="kota" placeholder="Kota" value="<?= $user['kota'] ?>">
                 </div>
@@ -61,8 +69,8 @@
                     <input type="file" class="form-control-file" id="bukti_nisn_ketua" name="bukti_nisn_ketua">
                 </div>
                 <div class="form-group">
-                    <label for="bukti_nisn_ketua">Upload bukti NISN/NIM Anggota</label>
-                    <input type="file" class="form-control-file" id="bukti_nisn_ketua" name="bukti_nisn_ketua">
+                    <label for="bukti_nisn_anggota">Upload bukti NISN/NIM Anggota</label>
+                    <input type="file" class="form-control-file" id="bukti_nisn_anggota" name="bukti_nisn_anggota">
                 </div>
                 <div class="form-group">
                     <label for="role_id">Status</label>

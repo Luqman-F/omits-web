@@ -34,7 +34,7 @@ class Validation
      */
     public $templates = [
         // 'list'   => 'CodeIgniter\Validation\Views\list',
-        'list'   => 'App\Views\Errors\list_errors',
+        'list'   => 'App\Views\errors\list_errors',
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
 
@@ -98,27 +98,4 @@ class Validation
         ]
     ];
 
-    public $profil = [
-        'email_ketua'   =>  'valid_email|is_unique[users.email_ketua]',
-        'email_anggota'    =>  'valid_email',
-        'bukti_nisn_ketua'    =>  'uploaded[bukti_nisn_ketua]|max_size[bukti_nisn_ketua, 2048]|is_image[bukti_nisn_ketua]',
-        'bukti_nisn_anggota'    =>  'uploaded[bukti_nisn_anggota]|max_size[bukti_nisn_anggota, 2048]|is_image[bukti_nisn_anggota]',
-    ];
-
-    public $profil_errors = [
-        'email_ketua'    =>    [
-            'valid_email'   =>  'Mohon masukkan email yang valid',
-            'is_unique'     =>  'Email sudah terdaftar'
-        ],
-        'bukti_nisn_ketua'    =>    [
-            'uploaded'  =>  'Terjadi kesalahan, Silakan coba lagi',
-            'max_size'  =>  'File tidak boleh lebih dari 2 MB',
-            'is_image'  =>  'File yang diupload bukan gambar',
-        ],
-        'bukti_nisn_anggota'    =>    [
-            'uploaded'  =>  'Terjadi kesalahan, Silakan coba lagi',
-            'max_size'  =>  'File tidak boleh lebih dari 2 MB',
-            'is_image'  =>  'File yang diupload bukan gambar',
-        ],
-    ];
 }

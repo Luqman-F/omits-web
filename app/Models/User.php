@@ -60,9 +60,9 @@ class User extends Model
     {
         if (($data['method'] == 'find' && !isset($data['id'])) || $data['method']=='findAll') {
             foreach($data['data'] as $key => $item) {
-                $data['data'][$key]['bukti_nisn_ketua'] = isset($item['bukti_nisn_ketua']) ? $this->getImageLink($item['bukti_nisn_ketua']) : null;
-                $data['data'][$key]['bukti_nisn_anggota'] = isset($item['bukti_nisn_anggota']) ? $this->getImageLink($item['bukti_nisn_anggota']) : null;
-                $data['data'][$key]['bukti_bayar'] = isset($item['bukti_bayar']) ? $this->getImageLink($item['bukti_bayar']) : null;
+                if (isset($item['bukti_nisn_ketua'])) $data['data'][$key]['bukti_nisn_ketua'] = $this->getImageLink($item['bukti_nisn_ketua']);
+                if (isset($item['bukti_nisn_anggota'])) $data['data'][$key]['bukti_nisn_anggota'] = $this->getImageLink($item['bukti_nisn_anggota']);
+                if (isset($item['bukti_bayar'])) $data['data'][$key]['bukti_bayar'] = $this->getImageLink($item['bukti_bayar']);
             }
         }
         return $data;
@@ -71,19 +71,15 @@ class User extends Model
     public function fake(Generator &$faker)
     {
         return [
-            'name'  =>  $faker->name,
-            'email' =>  $faker->email,
+            'nama_ketua'  =>  $faker->name,
+            'email_ketua' =>  $faker->email,
             'sekolah'	=>	'ITS',
-            'nisn'	=>	(string) $faker->randomNumber(5, true) . (string) $faker->randomNumber(5, true),
-            'wa'	=>	$faker->phoneNumber,
+            'wa_ketua'	=>	$faker->phoneNumber,
             'kota'	=>	$faker->city,
             'provinsi'	=>	'',
-            'image'	=>	null,
-            'bukti_nisn'    =>  $faker->randomAscii(),
             'bukti_bayar'   =>  $faker->randomAscii(),
             'password'	=>	password_hash($faker->password, PASSWORD_DEFAULT),
             'role_id'	=>	$faker->numberBetween(1, 6),
-            'is_active'	=>	$faker->boolean,
         ];
     }
 }

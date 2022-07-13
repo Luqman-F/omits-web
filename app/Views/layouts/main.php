@@ -62,7 +62,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="<?= route_to('Auth::logout') ?>">Logout</a>
+                    <a class="btn btn-primary" href="<?= url_to('Auth::logout') ?>">Logout</a>
                 </div>
             </div>
         </div>
@@ -78,12 +78,9 @@
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url() ?>/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="<?= base_url() ?>/vendor/chart.js/Chart.min.js"></script>
-
     <!-- Page level custom scripts -->
-    <script src="<?= base_url() ?>/js/demo/chart-area-demo.js"></script>
-    <script src="<?= base_url() ?>/js/demo/chart-pie-demo.js"></script>
+    <?= $this->renderSection('js') ?>
+
 
 </body>
 

@@ -19,25 +19,47 @@ class Peserta extends BaseController
         $nisn_ketua = $this->request->getFile('bukti_nisn_ketua');
         $nisn_anggota = $this->request->getFile('bukti_nisn_anggota');
 
-        if (!$this->validate('profil')) {
-            return redirect()->back()->with('msg', $this->validator->listErrors());
+        $msg = '';
+
+
+        if (! $nisn_ketua->getError()) {
+            if (!$this->validate([
+                'bukti_nisn_ketua'  =>  'uploaded[bukti_nisn_ketua]|max_size[bukti_nisn_ketua, 2048]|is_image[bukti_nisn_ketua]'
+            ], [
+                'bukti_nisn_ketua'    =>    [
+                    'uploaded'  =>  'Terjadi kesalahan, Silakan coba lagi',
+                    'max_size'  =>  'File tidak boleh lebih dari 2 MB',
+                    'is_image'  =>  'File yang diupload bukan gambar',
+                ]
+            ])) {
+                $msg .= $this->validator->listErrors();
+            } else {
+            $id_nisn_ketua = $this->upload($nisn_ketua);
+            $data['bukti_nisn_ketua'] = $id_nisn_ketua;
+            }
         }
 
-        if (! ($nisn_ketua->isValid() && $nisn_anggota->isValid())) {
-            return redirect()->back()->with('msg', $nisn_ketua->getErrorString(). '<br>'. $nisn_anggota->getErrorString());
+        if (! $nisn_anggota->getError()) {
+            if (!$this->validate([
+                'bukti_nisn_anggota'  =>  'uploaded[bukti_nisn_anggota]|max_size[bukti_nisn_anggota, 2048]|is_image[bukti_nisn_anggota]'
+            ], [
+                'bukti_nisn_anggota'    =>    [
+                    'uploaded'  =>  'Terjadi kesalahan, Silakan coba lagi',
+                    'max_size'  =>  'File tidak boleh lebih dari 2 MB',
+                    'is_image'  =>  'File yang diupload bukan gambar',
+                ]
+            ])) {
+                $msg .= $this->validator->listErrors();
+            } else {
+                $id_nisn_anggota = $this->upload($nisn_anggota);
+                $data['bukti_nisn_anggota'] = $id_nisn_anggota;
+            }
         }
-        
-        $id_nisn_ketua = $this->upload($nisn_ketua);
-        $id_nisn_anggota = $this->upload($nisn_anggota);
 
-        if (! ($id_nisn_ketua && $id_nisn_anggota)) {
-            return redirect()->back()->with('msg', 'Terjadi error saat upload file, silakan coba lagi');
-        }
         $data['id'] = session('id');
-        $data['bukti_nisn_ketua'] = $id_nisn_ketua;
-        $data['bukti_nisn_anggota'] = $id_nisn_anggota;
         $model->save($data);
 
+        if ($msg) session()->setFlashdata('msg', $msg);
         return redirect()->back()->with('success', 'Profil berhasil disimpan');
     }
 
@@ -46,20 +68,20 @@ class Peserta extends BaseController
         $model = new User();
 
         if ($this->validate([
-            'bukti_bayar'	=>	'uploaded[bukti_bayar]|max_size[bukti_bayar,2048]|is_image[bukti_bayar]'
+            'bukti_bayar'    =>    'uploaded[bukti_bayar]|max_size[bukti_bayar,2048]|is_image[bukti_bayar]'
         ], [
-            'bukti_bayar'	=>	[
-                'uploaded'	=>  'Terjadi kesalahan saat upload, silakah coba lagi',
-                'max_size'	=>	'File tidak boleh lebih dari 2 MB',
-                'is_image'	=>	'File yang diupload bukan gambar',
+            'bukti_bayar'    =>    [
+                'uploaded'    =>  'Terjadi kesalahan saat upload, silakah coba lagi',
+                'max_size'    =>    'File tidak boleh lebih dari 2 MB',
+                'is_image'    =>    'File yang diupload bukan gambar',
             ]
         ])) {
             $file = $this->request->getFile('bukti_bayar');
             $img_id = $this->upload($file);
 
             $model->save([
-                'id'	=>	session()->get('id'),
-                'bukti_bayar'	=>	$img_id,
+                'id'    =>    session()->get('id'),
+                'bukti_bayar'    =>    $img_id,
             ]);
 
             return redirect()->back()->with('success', 'Bukti pembayaran berhasil disimpan');
@@ -72,25 +94,25 @@ class Peserta extends BaseController
     {
         $mime = $file->getMimeType();
         $file_path = $file->store();
-        $content = file_get_contents( WRITEPATH . 'uploads/' . $file_path);
+        $content = file_get_contents(WRITEPATH . 'uploads/' . $file_path);
 
         $meta_data = new DriveFile([
-            'name'	=>	$file_path,
-        ]) ;
-        
+            'name'    =>    $file_path,
+        ]);
+
         $client = new Client();
         $client->setAuthConfig(APPPATH . 'cred.json');
         $client->addScope(Drive::DRIVE);
 
         $service = new Drive($client);
         $uploaded = $service->files->create($meta_data, [
-            'data'	=>	$content,
+            'data'    =>    $content,
             'mimeType'  =>  $mime,
             'uploadType'    => 'multipart',
-            'fields'	=>	'id',
+            'fields'    =>    'id',
         ]);
         unlink(WRITEPATH . 'uploads/' . $file_path);
-        
+
         if (!$uploaded) {
             return null;
         }
@@ -104,7 +126,6 @@ class Peserta extends BaseController
 
 
         return $id;
-
     }
 
     public function changePassword()
@@ -116,25 +137,24 @@ class Peserta extends BaseController
         }
 
         if (!$this->validate([
-            'password'	=>	'min_length[8]',
+            'password'    =>    'min_length[8]',
             'confirm_pass'  =>  'matches[password]'
-        ],[
-            'password'	=>	[
+        ], [
+            'password'    =>    [
                 'min_length'    =>  'Password minimal 8 karakter'
             ],
-            'confirm_pass'	=>	[
-                'matches'	=>	'Password baru dan konfirmasi password tidak sama'
+            'confirm_pass'    =>    [
+                'matches'    =>    'Password baru dan konfirmasi password tidak sama'
             ]
         ])) {
             return redirect()->back()->with('msg', $this->validator->listErrors());
         } else {
             $data = [
-                'id'	=>	session('id'),
+                'id'    =>    session('id'),
                 'password'  =>  password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             ];
             $model->save($data);
             return redirect()->back()->with('success', 'Password berhasil diubah');
         }
     }
-
 }

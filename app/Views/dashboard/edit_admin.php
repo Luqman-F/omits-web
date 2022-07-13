@@ -8,7 +8,7 @@
             Data berhasil disimpan
         </div>
     <?php endif ?>
-    <form action="<?= route_to('Admin::saveProfil') ?>" method="post">
+    <form action="<?= url_to('Admin::saveProfil') ?>" method="post">
         <?= csrf_field() ?>
         <div class="row">
             <div class="col-lg-6">

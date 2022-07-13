@@ -13,7 +13,7 @@
             <?= $msg ?>
         </div>
     <?php endif; ?>
-    <form action="<?= route_to('Peserta::changePassword') ?>" method="post">
+    <form action="<?= url_to('Peserta::changePassword') ?>" method="post">
         <?= csrf_field() ?>
         <div class="form-group">
             <label for="old_pass">Password sekarang</label>

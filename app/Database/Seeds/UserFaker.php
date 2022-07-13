@@ -11,7 +11,10 @@ class UserFaker extends Seeder
     public function run()
     {
         $fabricator = new Fabricator(User::class);
-        $data = $fabricator->make(55);
-        $this->db->table('users')->insertBatch($data);
+        $data = $fabricator->make(5);
+        $model = new User();
+        foreach ($data as $datum) {
+            $model->save($datum);
+        }
     }
 }

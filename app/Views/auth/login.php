@@ -31,7 +31,7 @@
                                         <?= $msg ?>
                                     </div>
                                     <?php endif; ?>
-                                    <form class="user" action="auth/login" method="POST">
+                                    <form class="user" action="<?= url_to('Auth::login') ?>" method="POST">
                                         <?= csrf_field(); ?>
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
@@ -48,10 +48,10 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="<?= route_to('Home::forgotPassword')?>">Forgot Password?</a>
+                                        <a class="small" href="<?= url_to('Home::forgotPassword')?>">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="<?= route_to('Home::registration')?>">Create an Account!</a>
+                                        <a class="small" href="<?= url_to('Home::registration')?>">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

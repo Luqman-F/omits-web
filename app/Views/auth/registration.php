@@ -26,7 +26,7 @@
                                             <?= $msg ?>
                                         </div>
                                     <?php endif; ?>
-                                    <form class="user" action="auth/register" method="POST">
+                                    <form class="user" action="<?= url_to('Auth::register') ?>" method="POST">
                                         <?= csrf_field(); ?>
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" name="nama_ketua" id="nama_ketua" placeholder="Nama Lengkap Ketua">
@@ -51,7 +51,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="<?= route_to('Home::login') ?>">Already have an Account? Login!</a>
+                                        <a class="small" href="<?= url_to('Home::login') ?>">Already have an Account? Login!</a>
                                     </div>
                                 </div>
                             </div>

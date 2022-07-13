@@ -6,7 +6,7 @@
     <div class="row">
         <div class="card col-sm-12">
             <div class="card-body">
-                <form class="form-inline" action="<?= route_to('Dashboard::listUser') ?>" method="get">
+                <form class="form-inline" action="<?= url_to('Dashboard::listUser') ?>" method="get">
                     <div class="form-group mr-4">
                         <label for="kategori">Status:</label>
                         <select class="form-control ml-2" id="kategori" name="kategori">
@@ -29,7 +29,7 @@
     <div class="row">
         <div class="card shadow mb-4 w-100">
             <div class="card-header">
-                <a class="btn btn-primary" href="<?= route_to('Admin::exportToExcel') ?>" target="_blank" rel="noopener noreferrer">Export</a>
+                <a class="btn btn-primary" href="<?= url_to('Admin::exportToExcel') ?>" target="_blank" rel="noopener noreferrer">Export</a>
             </div>
             <div class="card-body">
                 <?= $table ?>

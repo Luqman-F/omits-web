@@ -29,7 +29,7 @@ class Auth extends BaseController
                 return redirect()->back()->with('msg', 'Email dan password tidak sesuai');
             }
         } else {
-            return redirect()->back()->with('msg', $this->validator->listErrors());
+            return redirect()->back()->with('msg', 'Email atau Password tidak sesuai');
         }
     }
 

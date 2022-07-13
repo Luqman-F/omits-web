@@ -24,7 +24,7 @@
                                         <?= $msg ?>
                                     </div>
                                     <?php endif; ?>
-                                    <form class="user" action="auth/resetpassword" method="POST">
+                                    <form class="user" action="<?= url_to('Auth::resetPssword') ?>" method="POST">
                                         <?= csrf_field(); ?>
                                         <input type="hidden" name="id" id="id" value="<?= session()->get('reset_id') ?>">
                                         <div class="form-group">
@@ -41,12 +41,6 @@
 
                                     </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
